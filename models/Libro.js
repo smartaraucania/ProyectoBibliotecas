@@ -15,7 +15,7 @@ const LibroSchema = Schema({
     fechaIngreso:{type:Date,required:true},
     estado:{type:String,maxlength:50},
     bp:{type:String,maxlength:100},
-    observacion:{type:String,type:500},
+    observacion:{type:String,maxlength:500},
     coleccion:{type:String},
     codigiBarra:{type:String,maxlength:150},
     biblioteca:{type: mongoose.Schema.Types.ObjectId, ref: 'Biblioteca'}

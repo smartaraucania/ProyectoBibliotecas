@@ -16,7 +16,7 @@ function getBiblioteca(req, res) {
 
     Biblioteca.findById(bibliotecaId).exec((err, bibliotecas) => {
         if (err) return res.status(500).send({ data: `Error al conectar al servidor: ${err}` });
-        if (!bibliotecas) return res.status(404).send({ data: "No es encontro scooter con esa id" });
+        if (!bibliotecas) return res.status(404).send({ data: "No es encontro biblioteca con esa id" });
 
         res.status(200).send({ data: bibliotecas });
     });
@@ -74,6 +74,17 @@ function createBiblioteca(req, res) {
     });
 }
 
+function getBibliotecaDigitoVerificador(req,res) {
+    let digito = req.params.digito;
+    Biblioteca.findOne({
+        digitoVerificador: digito
+    }).exec((err, biblioteca) => {
+        if (err) return res.status(500).send({ data: `Error al conectar al servidor: ${err}` });
+        if (!biblioteca) return res.status(404).send({ data: "No es encontro biblioteca con ese digito verificador" });
+
+        res.status(200).send({ data: biblioteca });
+    });
+}
 
 
 module.exports = {
@@ -81,5 +92,6 @@ module.exports = {
     deleteBiblioteca,
     setBiblioteca,
     getBiblioteca,
-    getBibliotecas
+    getBibliotecas,
+    getBibliotecaDigitoVerificador
 }

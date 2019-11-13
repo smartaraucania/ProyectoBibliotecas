@@ -24,9 +24,9 @@ var adminUser = new User({
     rut : 99999999,
     pass: pass,
     rol:1,
-    nombre:admin,
-    cargo:admin,
-    email:admin
+    nombre:"admin",
+    cargo:"admin",
+    email:"admin"
 });
 User.create(adminUser, function (error) {
 });
