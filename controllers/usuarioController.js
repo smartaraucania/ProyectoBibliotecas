@@ -43,12 +43,12 @@ function editPassUsuarioLog(req, res) {
     var newPassword = req.body.newPassword || '';
     var confirmPasword = req.body.confirmPasword || '';
 
-    User.findById(req.user.id).select('+password').exec((err, user) => {
+    User.findById(req.user.id).select('+pass').exec((err, user) => {
         if (err) return res.status(500).send(err.message);
         if (oldPassword == '' || newPassword == '' || confirmPasword == '') return res.status(401).send({ data: "ingrese datos necesarios" });
-        if (!bcrypt.compareSync(oldPassword, user.password)) return res.status(402).send({ data: "Contraseña antigua incorrecta" });
+        if (!bcrypt.compareSync(oldPassword, user.pass)) return res.status(402).send({ data: "Contraseña antigua incorrecta" });
         if (newPassword != confirmPasword) return res.status(403).send({ data: "Las contraseñas no coinciden" });
-        user.password = bcrypt.hashSync(newPassword, salt);
+        user.pass = bcrypt.hashSync(newPassword, salt);
         user.save((err) => {
             if (err) return res.status(401).send({ data: "Un error ha ocurrido con la Base de datos" });
             return res.status(200).send({data:user});

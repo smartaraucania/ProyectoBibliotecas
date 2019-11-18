@@ -17,7 +17,7 @@ privateRouter.delete('/usuario/:usuarioId',middleware.isAuth,middleware.HasRole(
 privateRouter.post('/usuario/editpass',middleware.isAuth,usuarioController.editPassUsuarioLog);
 privateRouter.post('/usuario/editme',middleware.isAuth,usuarioController.editMe);
 privateRouter.get('/usuariorut/:rut',middleware.isAuth,usuarioController.getUserRut);
-privateRouter.post('/usuario/:usuarioId',middleware.isAuth,usuarioController.modificarUsuario);
+privateRouter.post('/usuario/:usuarioId',middleware.isAuth,middleware.HasRole(1),usuarioController.modificarUsuario);
 //rutas libros
 privateRouter.post('/libros',middleware.isAuth,middleware.HasRole(1),libroController.crear);
 privateRouter.delete('/libros/:libroId',middleware.isAuth,middleware.HasRole(1),libroController.eliminar);
