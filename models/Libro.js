@@ -1,5 +1,6 @@
 'use strict'
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
 const Schema = mongoose.Schema;
 
 const LibroSchema = Schema({
@@ -20,4 +21,8 @@ const LibroSchema = Schema({
     codigiBarra:{type:String,maxlength:150},
     biblioteca:{type: mongoose.Schema.Types.ObjectId, ref: 'Biblioteca'}
 });
-module.exports = mongoose.model('Libro', LibroSchema);
+
+LibroSchema.plugin(mongoosePaginate);
+const modelo = mongoose.model('Libro',  LibroSchema); 
+modelo.paginate().then({}) // Usage
+module.exports = modelo;
