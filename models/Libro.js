@@ -19,7 +19,8 @@ const LibroSchema = Schema({
     observacion:{type:String,maxlength:500},
     coleccion:{type:String},
     codigiBarra:{type:String,maxlength:150},
-    biblioteca:{type: mongoose.Schema.Types.ObjectId, ref: 'Biblioteca'}
+    biblioteca:{type: mongoose.Schema.Types.ObjectId, ref: 'Biblioteca'},
+    imagen:{type:String}
 });
 
 LibroSchema.plugin(mongoosePaginate);
