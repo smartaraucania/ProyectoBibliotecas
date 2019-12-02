@@ -2,6 +2,7 @@
 const mongoose = require('mongoose');
 const Biblioteca = require('../models/Biblioteca');
 const Libro = require('../models/Libro');
+const User = require('../models/Usuario');
 
 //Muestra todos los libros (paginacion de 20)
 function index(req, res) {
@@ -47,7 +48,7 @@ function eliminar(req, res) {
     });
 }
 
-//Crear un libro (se adjunto digito verificador)
+//Crear un libro Admin (se adjunto digito verificador)
 function crear(req, res) {
     const libro = new Libro({
         registro: req.body.registro,
@@ -115,10 +116,56 @@ function modificar(req, res) {
     });
 }
 
+//Crear un libro Bibliotecario (se adjunto digito verificador)
+function crearLibroBibliotecario(req, res) {
+
+    User.findById(req.user.id).exec((err, user) => {
+        if (err) return res.status(500).send(err.message);
+        if (!user) return res.status(404).send({ data: "No es encontró bibliotecario con esa id" });
+
+        const libro = new Libro({
+            registro: req.body.registro,
+            autor: req.body.autor,
+            titulo: req.body.titulo,
+            volumen: req.body.volumen,
+            clasificacion: req.body.clasificacion,
+            copia: req.body.copia,
+            editorial: req.body.editorial,
+            anio: req.body.anio,
+            procedencia: req.body.procedencia,
+            fechaIngreso: req.body.fechaIngreso,
+            estado: req.body.estado,
+            bp: req.body.bp,
+            observacion: req.body.observacion,
+            coleccion: req.body.coleccion,
+            codigiBarra: req.body.codigiBarra,
+            biblioteca: user.biblioteca
+        });
+        Biblioteca.findById(user.biblioteca).exec((err, bibliotecas) => {
+            if (err) return res.status(500).send({ data: `Error al conectar al servidor: ${err}` });
+            if (!bibliotecas) return res.status(404).send({ data: "No es encontro biblioteca con esa id" });
+            libro.registro = (bibliotecas.digitoVerificador) + (libro.registro);
+            libro.save((err) => {
+                if (err) return res.status(500).send({ data: `Error al crear libro ` + err });
+                return res.status(200).send({ data: libro });
+            });
+        });
+
+
+    })
+
+}
+
+function subirImagen(req, res) {
+
+}
+
 module.exports = {
     index,
     show,
     eliminar,
     crear,
-    modificar
+    modificar,
+    subirImagen,
+    crearLibroBibliotecario
 }
