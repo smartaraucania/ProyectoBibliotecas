@@ -100,7 +100,7 @@ function modificar(req, res) {
             libro.bp = req.body.bp,
             libro.observacion = req.body.observacion,
             libro.coleccion = req.body.coleccion,
-            libro.codigiBarra = req.body.codigiBarra,
+            libro.codigoBarra = req.body.codigoBarra,
             libro.biblioteca = req.body.biblioteca
 
         Biblioteca.findById(req.body.biblioteca).exec((err, bibliotecas) => {

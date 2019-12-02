@@ -18,7 +18,7 @@ const LibroSchema = Schema({
     bp:{type:String,maxlength:100},
     observacion:{type:String,maxlength:500},
     coleccion:{type:String},
-    codigiBarra:{type:String,maxlength:150},
+    codigoBarra:{type:String,maxlength:150},
     biblioteca:{type: mongoose.Schema.Types.ObjectId, ref: 'Biblioteca'},
     imagen:{type:String}
 });
