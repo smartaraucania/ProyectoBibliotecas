@@ -16,7 +16,7 @@ app.get('/',(req,res)=>{
     res.send({message:'Api Rest Bibliotecas'})
 })
 
-mongoose.connect(config.db,{ useNewUrlParser: true },(err,res)=>{
+mongoose.connect(config.db,{ useNewUrlParser: true, useUnifiedTopology: true },(err,res)=>{
     if(err){
         return console.log(`Error al conectar a base de datos: ${err}`);
     }

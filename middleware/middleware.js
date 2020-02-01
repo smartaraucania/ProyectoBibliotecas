@@ -28,8 +28,6 @@ function HasRole(roles) {
       const payload = jwt.decode(token, config.secret);
       var pasa=false;
       for (let index = 0; index < roles.length; index++) {
-        console.log(roles[index]);
-        console.log(payload.rol);
         if (roles[index] == payload.rol){
           pasa=true;
         } 

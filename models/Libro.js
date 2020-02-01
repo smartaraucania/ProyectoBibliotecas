@@ -4,7 +4,7 @@ const mongoosePaginate = require('mongoose-paginate-v2');
 const Schema = mongoose.Schema;
 
 const LibroSchema = Schema({
-    registro : {type:String,unique:true,required:true,maxlength:100},
+    registro : {type:String,required:true,maxlength:100},
     autor: {type:String,required:true,maxlength:50},
     titulo:{type:String,required:true,maxlength:50},
     volumen:{type:String,maxlength:50},
